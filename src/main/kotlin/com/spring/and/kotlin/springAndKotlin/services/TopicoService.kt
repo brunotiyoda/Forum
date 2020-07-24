@@ -13,7 +13,7 @@ class TopicoService(
 
     fun buscaTodosOsTopicos(): List<TopicoDomain> {
         val findAll = topicoRepository.findAll()
-        return listOf(topicoMapper.toDomain(findAll))
+        return topicoMapper.toDomain(findAll)
     }
 
     fun buscaUmUnicoTopico(id: Long): TopicoDomain {
@@ -21,7 +21,7 @@ class TopicoService(
         return topicoMapper.toDomain(found)
     }
 
-    fun filtraTopicosPorNomeDoCurso(nomeDoCurso: String): TopicoDomain {
+    fun filtraTopicosPorNomeDoCurso(nomeDoCurso: String): List<TopicoDomain> {
         val cursoDoNome = topicoRepository.findByCurso_Nome(nomeDoCurso)
         return topicoMapper.toDomain(cursoDoNome)
     }

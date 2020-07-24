@@ -2,7 +2,6 @@ package com.spring.and.kotlin.springAndKotlin.controllers
 
 import com.spring.and.kotlin.springAndKotlin.controllers.dtos.request.TopicoRequestDTO
 import com.spring.and.kotlin.springAndKotlin.controllers.dtos.response.TopicoResponseDTO
-import com.spring.and.kotlin.springAndKotlin.controllers.dtos.response.ListOfTopicoResponseDTO
 import com.spring.and.kotlin.springAndKotlin.controllers.mappers.TopicoMapper
 import com.spring.and.kotlin.springAndKotlin.services.TopicoService
 import org.springframework.http.HttpStatus
@@ -18,7 +17,7 @@ class TopicoController(
 ) {
 
     @GetMapping
-    fun topicos(): ResponseEntity<ListOfTopicoResponseDTO> {
+    fun topicos(): ResponseEntity<List<TopicoResponseDTO>> {
         val findAll = topicoService.buscaTodosOsTopicos()
         val dto = topicoMapper.toDTO(findAll)
 
@@ -27,7 +26,7 @@ class TopicoController(
 
 
     @GetMapping("/nomeCurso")
-    fun filtraTopicosPorNomeDoCurso(nomeDoCurso: String): ResponseEntity<TopicoResponseDTO> {
+    fun filtraTopicosPorNomeDoCurso(nomeDoCurso: String): ResponseEntity<List<TopicoResponseDTO>> {
         val filtraTopicosPorNomeDoCurso = topicoService.filtraTopicosPorNomeDoCurso(nomeDoCurso)
         val dto = topicoMapper.toDTO(filtraTopicosPorNomeDoCurso)
 

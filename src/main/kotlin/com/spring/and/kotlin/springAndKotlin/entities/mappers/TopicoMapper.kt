@@ -10,10 +10,11 @@ class TopicoMapper(
         private val cursoMapper: CursoMapper = CursoMapper()
 ) {
 
-    fun toDomain(sources: List<Topico>): TopicoDomain {
-        var topicoDomain = TopicoDomain.Builder().build()
+    fun toDomain(sources: List<Topico>): MutableList<TopicoDomain> {
+        val topicosDomain: MutableList<TopicoDomain> = mutableListOf()
+
         for (source in sources) {
-            topicoDomain = TopicoDomain.Builder()
+            val topicoDomain = TopicoDomain.Builder()
                     .withId(source.id)
                     .withTitulo(source.titulo)
                     .withMensagem(source.mensagem)
@@ -23,8 +24,10 @@ class TopicoMapper(
                                     .build()
                     )
                     .build()
+            topicosDomain.add(topicoDomain)
         }
-        return topicoDomain
+
+        return topicosDomain
     }
 
     fun toDomain(source: Topico): TopicoDomain {

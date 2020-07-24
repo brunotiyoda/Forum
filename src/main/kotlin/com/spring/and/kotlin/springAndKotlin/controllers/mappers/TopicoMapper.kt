@@ -2,28 +2,21 @@ package com.spring.and.kotlin.springAndKotlin.controllers.mappers
 
 import com.spring.and.kotlin.springAndKotlin.controllers.dtos.request.TopicoRequestDTO
 import com.spring.and.kotlin.springAndKotlin.controllers.dtos.response.TopicoResponseDTO
-import com.spring.and.kotlin.springAndKotlin.controllers.dtos.response.ListOfTopicoResponseDTO
 import com.spring.and.kotlin.springAndKotlin.domains.CursoDomain
 import com.spring.and.kotlin.springAndKotlin.domains.TopicoDomain
 import org.springframework.stereotype.Component
 
 @Component("topicoMapperDTO")
-class TopicoMapper {
-    var listOfTopicoResponseDTO: ListOfTopicoResponseDTO = ListOfTopicoResponseDTO()
-    var autorMapper: AutorMapper = AutorMapper()
-    var cursoMapper: CursoMapper = CursoMapper()
+class TopicoMapper(
+        val autorMapper: AutorMapper = AutorMapper(),
+        val cursoMapper: CursoMapper = CursoMapper()
+) {
 
-    fun toDTO(sources: List<TopicoDomain>): ListOfTopicoResponseDTO {
-        val topicoDTO = TopicoResponseDTO()
+    fun toDTO(sources: List<TopicoDomain>): MutableList<TopicoResponseDTO> {
+        val listOfTopicoResponseDTO: MutableList<TopicoResponseDTO> = mutableListOf()
 
         for (source in sources) {
-            topicoDTO.id = source.id
-            topicoDTO.titulo = source.titulo
-            topicoDTO.mensagem = source.mensagem
-            topicoDTO.dataCriacao = source.dataCriacao
-            topicoDTO.statusTopido = source.statusTopidoDomain
-            topicoDTO.autorResponse = autorMapper.toDTO(source.autor)
-            topicoDTO.cursoResponse = cursoMapper.toDTO(source.cursoDomain)
+            val topicoDTO = toDTO(source)
             listOfTopicoResponseDTO.add(topicoDTO)
         }
 
