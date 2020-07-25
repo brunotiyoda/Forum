@@ -16,8 +16,8 @@ class TopicoService(
         return topicoMapper.toDomain(findAll)
     }
 
-    fun buscaUmUnicoTopico(id: Long): TopicoDomain {
-        val found = topicoRepository.getOne(id)
+    fun buscaUmTopico(id: Long): TopicoDomain {
+        val found = topicoRepository.findById(id)
         return topicoMapper.toDomain(found)
     }
 
@@ -31,5 +31,17 @@ class TopicoService(
         val save = topicoRepository.save(entity)
 
         return topicoMapper.toDomain(save)
+    }
+
+    fun atualizarTopico(id: Long, topicoDomain: TopicoDomain): TopicoDomain {
+        val found = topicoRepository.getOne(id)
+        val entity = topicoMapper.udpateTopico(found, topicoDomain)
+        val save = topicoRepository.save(entity)
+
+        return topicoMapper.toDomain(save)
+    }
+
+    fun deleteTopico(id: Long) {
+        topicoRepository.deleteById(id)
     }
 }
