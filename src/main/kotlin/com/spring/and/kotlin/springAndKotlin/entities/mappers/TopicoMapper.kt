@@ -4,6 +4,7 @@ import com.spring.and.kotlin.springAndKotlin.domains.CursoDomain
 import com.spring.and.kotlin.springAndKotlin.domains.TopicoDomain
 import com.spring.and.kotlin.springAndKotlin.entities.Topico
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class TopicoMapper(
@@ -43,6 +44,10 @@ class TopicoMapper(
                 .build()
     }
 
+    fun toDomain(source: Optional<Topico>): TopicoDomain {
+        return source.map { toDomain(source.get()) }.orElseThrow { throw Exception("Não encontrado") }
+    }
+
     fun toEntity(source: TopicoDomain): Topico {
         return Topico(
                 titulo = source.titulo,
@@ -50,4 +55,12 @@ class TopicoMapper(
                 curso = cursoMapper.toEntity(source.cursoDomain)
         )
     }
+
+    fun udpateTopico(source: Topico, topicoDomain: TopicoDomain): Topico {
+        source.titulo = topicoDomain.titulo
+        source.mensagem = topicoDomain.mensagem
+
+        return source
+    }
+
 }

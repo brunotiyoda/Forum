@@ -24,6 +24,13 @@ class TopicoController(
         return ResponseEntity.status(HttpStatus.OK).body(dto)
     }
 
+    @GetMapping("/{id}")
+    fun buscaPorUmTopico(@PathVariable id: Long): ResponseEntity<TopicoResponseDTO> {
+        val topico = topicoService.buscaUmTopico(id)
+        val dto = topicoMapper.toDTO(topico)
+
+        return ResponseEntity.status(HttpStatus.OK).body(dto)
+    }
 
     @GetMapping("/nomeCurso")
     fun filtraTopicosPorNomeDoCurso(nomeDoCurso: String): ResponseEntity<List<TopicoResponseDTO>> {
@@ -45,12 +52,23 @@ class TopicoController(
         return ResponseEntity.created(uri).body(dto)
     }
 
-    @GetMapping("/{id}")
-    fun buscaPorUmTopico(@PathVariable id: Long): ResponseEntity<TopicoResponseDTO> {
-        val topico = topicoService.buscaUmUnicoTopico(id)
-        val dto = topicoMapper.toDTO(topico)
+    @PutMapping("/{id}")
+    fun atualizarTopico(
+            @PathVariable id: Long,
+            @RequestBody topicoRequestDTO: TopicoRequestDTO
+    ): ResponseEntity<TopicoResponseDTO> {
+
+        val domain = topicoMapper.toDomain(topicoRequestDTO)
+        val topicoAtualizado = topicoService.atualizarTopico(id, domain)
+        val dto = topicoMapper.toDTO(topicoAtualizado)
 
         return ResponseEntity.status(HttpStatus.OK).body(dto)
+    }
+
+    @DeleteMapping("/{id}")
+    fun atualizarTopico(@PathVariable id: Long): ResponseEntity<TopicoResponseDTO> {
+        topicoService.deleteTopico(id)
+        return ResponseEntity.ok().build()
     }
 
 }

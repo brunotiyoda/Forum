@@ -8,10 +8,10 @@ import javax.persistence.*
 data class Topico(
 
         @Column(name = "titulo")
-        val titulo: String = String(),
+        var titulo: String = String(),
 
         @Column(name = "mensagem")
-        val mensagem: String = String(),
+        var mensagem: String = String(),
 
         @Column(name = "data_criacao")
         val dataCriacao: LocalDateTime = LocalDateTime.now(),
