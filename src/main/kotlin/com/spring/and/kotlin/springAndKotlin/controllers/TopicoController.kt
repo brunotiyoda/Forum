@@ -66,9 +66,12 @@ class TopicoController(
     }
 
     @DeleteMapping("/{id}")
-    fun atualizarTopico(@PathVariable id: Long): ResponseEntity<TopicoResponseDTO> {
+    fun atualizarTopico(@PathVariable id: Long): ResponseEntity.BodyBuilder {
         topicoService.deleteTopico(id)
-        return ResponseEntity.ok().build()
+        return ResponseEntity.ok()
     }
 
+    fun magnify(a: Int) = a
+    fun add(a: Int, b: Int) = a + magnify(b)
+    fun divide(a: Int, b: Int) = a / b
 }

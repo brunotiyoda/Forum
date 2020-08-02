@@ -1,39 +1,68 @@
-/*
 package com.spring.and.kotlin.springAndKotlin.controllers
 
-import com.spring.and.kotlin.springAndKotlin.controllers.mappers.TopicoMapper
-import com.spring.and.kotlin.springAndKotlin.repositories.TopicoRepository
-import com.spring.and.kotlin.springAndKotlin.services.TopicoService
+import io.mockk.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.mockito.InjectMocks
-import org.mockito.Mock
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.web.client.TestRestTemplate
-import org.springframework.mock.web.MockHttpServletResponse
-import org.springframework.test.web.servlet.MockMvc
+import org.springframework.http.ResponseEntity
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class TopicoControllerTest(
-        private val mvc: MockMvc,
-        private val restTemplate: TestRestTemplate
-) {
 
-    @Mock
-    private val topicoController = TopicoController(topicoService, topicoMapper)
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class TopicoControllerTest {
 
-    @InjectMocks
-    private val topicoService = TopicoService(topicoRepository, topicoMapper
+    val topicoControllerMockk = mockk<TopicoController>()
+
+/*    @Autowired
+    private lateinit var topicoController: TopicoController*/
+
+/*    @InjectMocks
+    private lateinit var topicoService: TopicoService
 
     @Mock
-    private val topicoRepository = TopicoRepository
+    private lateinit var topicoRepository: TopicoRepository
 
     @InjectMocks
-    private val topicoMapper = TopicoMapper()
+    private lateinit var topicoMapper: TopicoMapper*/
+
+    //private lateinit var topicoMapper2: com.spring.and.kotlin.springAndKotlin.entities.mappers.TopicoMapper
+
 
     @Test
-    fun `asdf`() {
-        restTemplate.
-        val response: MockHttpServletResponse = mvc.perform()
+    fun `deve atualizar um tópico`() {
+
+        every { topicoControllerMockk.atualizarTopico(1) } returns ResponseEntity.ok()
+
+        topicoControllerMockk.atualizarTopico(1)
+
+        verify { topicoControllerMockk.atualizarTopico(1) }
+
+        confirmVerified(topicoControllerMockk)
     }
 
-}*/
+
+    @Test
+    fun `capture an argument`() {
+
+        val slot = slot<Int>()
+
+        every { topicoControllerMockk.divide(capture(slot), any()) } returns 22
+
+        topicoControllerMockk.divide(5, 2)
+
+        assertEquals(5, slot.captured)
+    }
+
+    @Test
+    fun `spies`() {
+        val spy = spyk(topicoControllerMockk)
+
+        assertEquals(9, spy.add(4, 5))
+
+        every { spy.magnify(any()) } answers { firstArg<Int>() * 2 }
+
+        assertEquals(14, spy.add(4, 5))
+
+        verify { spy.add(4, 5) }
+        verify { spy.magnify(5) }
+    }
+
+}
