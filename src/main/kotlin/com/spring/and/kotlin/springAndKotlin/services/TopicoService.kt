@@ -3,6 +3,8 @@ package com.spring.and.kotlin.springAndKotlin.services
 import com.spring.and.kotlin.springAndKotlin.domains.TopicoDomain
 import com.spring.and.kotlin.springAndKotlin.entities.mappers.TopicoMapper
 import com.spring.and.kotlin.springAndKotlin.repositories.TopicoRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 
 @Service
@@ -11,8 +13,8 @@ class TopicoService(
         private val topicoMapper: TopicoMapper
 ) {
 
-    fun buscaTodosOsTopicos(): List<TopicoDomain> {
-        val findAll = topicoRepository.findAll()
+    fun buscaTodosOsTopicos(pagina: Int, quantidade: Int): Page<TopicoDomain> {
+        val findAll = topicoRepository.findAll(PageRequest.of(pagina, quantidade))
         return topicoMapper.toDomain(findAll)
     }
 
@@ -21,8 +23,8 @@ class TopicoService(
         return topicoMapper.toDomain(found)
     }
 
-    fun filtraTopicosPorNomeDoCurso(nomeDoCurso: String): List<TopicoDomain> {
-        val cursoDoNome = topicoRepository.findByCurso_Nome(nomeDoCurso)
+    fun filtraTopicosPorNomeDoCurso(nomeDoCurso: String, pagina: Int, quantidade: Int): Page<TopicoDomain> {
+        val cursoDoNome = topicoRepository.findByCurso_Nome(nomeDoCurso, PageRequest.of(pagina, quantidade))
         return topicoMapper.toDomain(cursoDoNome)
     }
 

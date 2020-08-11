@@ -4,7 +4,7 @@ import com.spring.and.kotlin.springAndKotlin.domains.enums.StatusTopicoDomain
 import com.spring.and.kotlin.springAndKotlin.entities.Resposta
 import java.time.LocalDateTime
 
-class TopicoResponseDTO {
+class TopicoResponseDTO() {
 
     var id: Long? = 0
     var titulo: String? = String()

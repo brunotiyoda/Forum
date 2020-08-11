@@ -4,6 +4,7 @@ import com.spring.and.kotlin.springAndKotlin.controllers.dtos.request.TopicoRequ
 import com.spring.and.kotlin.springAndKotlin.controllers.dtos.response.TopicoResponseDTO
 import com.spring.and.kotlin.springAndKotlin.controllers.mappers.TopicoMapper
 import com.spring.and.kotlin.springAndKotlin.services.TopicoService
+import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -17,11 +18,13 @@ class TopicoController(
 ) {
 
     @GetMapping
-    fun topicos(): ResponseEntity<List<TopicoResponseDTO>> {
-        val findAll = topicoService.buscaTodosOsTopicos()
-        val dto = topicoMapper.toDTO(findAll)
+    fun topicos(
+            @RequestParam pagina: Int,
+            @RequestParam quantidade: Int
+    ): Page<TopicoResponseDTO> {
+        val findAll = topicoService.buscaTodosOsTopicos(pagina, quantidade)
 
-        return ResponseEntity.status(HttpStatus.OK).body(dto)
+        return topicoMapper.toDTO(findAll)
     }
 
     @GetMapping("/{id}")
@@ -33,11 +36,14 @@ class TopicoController(
     }
 
     @GetMapping("/nomeCurso")
-    fun filtraTopicosPorNomeDoCurso(nomeDoCurso: String): ResponseEntity<List<TopicoResponseDTO>> {
-        val filtraTopicosPorNomeDoCurso = topicoService.filtraTopicosPorNomeDoCurso(nomeDoCurso)
-        val dto = topicoMapper.toDTO(filtraTopicosPorNomeDoCurso)
+    fun filtraTopicosPorNomeDoCurso(
+            @RequestParam nomeDoCurso: String,
+            @RequestParam pagina: Int,
+            @RequestParam quantidade: Int
+    ): Page<TopicoResponseDTO> {
+        val filtraTopicosPorNomeDoCurso = topicoService.filtraTopicosPorNomeDoCurso(nomeDoCurso, pagina, quantidade)
 
-        return ResponseEntity.status(HttpStatus.OK).body(dto)
+        return topicoMapper.toDTO(filtraTopicosPorNomeDoCurso)
     }
 
     @PostMapping

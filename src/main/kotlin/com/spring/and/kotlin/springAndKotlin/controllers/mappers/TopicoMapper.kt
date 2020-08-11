@@ -4,6 +4,7 @@ import com.spring.and.kotlin.springAndKotlin.controllers.dtos.request.TopicoRequ
 import com.spring.and.kotlin.springAndKotlin.controllers.dtos.response.TopicoResponseDTO
 import com.spring.and.kotlin.springAndKotlin.domains.CursoDomain
 import com.spring.and.kotlin.springAndKotlin.domains.TopicoDomain
+import org.springframework.data.domain.Page
 import org.springframework.stereotype.Component
 
 @Component("topicoMapperDTO")
@@ -34,6 +35,10 @@ class TopicoMapper(
         topicoDTO.cursoResponse = cursoMapper.toDTO(source.cursoDomain)
 
         return topicoDTO
+    }
+
+    fun toDTO(source: Page<TopicoDomain>): Page<TopicoResponseDTO> {
+        return source.map { tp -> toDTO(tp) }
     }
 
     fun toDomain(source: TopicoRequestDTO): TopicoDomain {
