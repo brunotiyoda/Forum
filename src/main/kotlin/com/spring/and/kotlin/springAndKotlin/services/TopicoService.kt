@@ -4,7 +4,7 @@ import com.spring.and.kotlin.springAndKotlin.domains.TopicoDomain
 import com.spring.and.kotlin.springAndKotlin.entities.mappers.TopicoMapper
 import com.spring.and.kotlin.springAndKotlin.repositories.TopicoRepository
 import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -13,8 +13,8 @@ class TopicoService(
         private val topicoMapper: TopicoMapper
 ) {
 
-    fun buscaTodosOsTopicos(pagina: Int, quantidade: Int): Page<TopicoDomain> {
-        val findAll = topicoRepository.findAll(PageRequest.of(pagina, quantidade))
+    fun buscaTodosOsTopicos(pagination: Pageable): Page<TopicoDomain> {
+        val findAll = topicoRepository.findAll(pagination)
         return topicoMapper.toDomain(findAll)
     }
 
@@ -23,8 +23,8 @@ class TopicoService(
         return topicoMapper.toDomain(found)
     }
 
-    fun filtraTopicosPorNomeDoCurso(nomeDoCurso: String, pagina: Int, quantidade: Int): Page<TopicoDomain> {
-        val cursoDoNome = topicoRepository.findByCurso_Nome(nomeDoCurso, PageRequest.of(pagina, quantidade))
+    fun filtraTopicosPorNomeDoCurso(nomeDoCurso: String): List<TopicoDomain> {
+        val cursoDoNome = topicoRepository.findByCurso_Nome(nomeDoCurso)
         return topicoMapper.toDomain(cursoDoNome)
     }
 
@@ -46,4 +46,5 @@ class TopicoService(
     fun deleteTopico(id: Long) {
         topicoRepository.deleteById(id)
     }
+
 }

@@ -17,37 +17,52 @@ INSERT INTO CURSO(nome, categoria) VALUES('HTML 5', 'Frontend');
 
 -- TOPICO --
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('A', 'A', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('B', 'B', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('C', 'C', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('D', 'D', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('1', '1', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('2', '2', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('3', '3', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('E', 'E', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('1A', '1A', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('2B', '2B', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('3D', '3D', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('Z', 'Z', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('A1', 'A1', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('B2', 'B2', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('C4', 'C4', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
-VALUES('Erro ao criar projeto', 'Erro ao criar projeto', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
+VALUES('*1A', '*1A', '2019-05-05 18:00:00', 'NAO_RESPONDIDO', 1, 1);
 
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
 VALUES('Projeto não compila', 'Projeto não compila', '2019-05-05 19:00:00', 'NAO_RESPONDIDO', 1, 1);

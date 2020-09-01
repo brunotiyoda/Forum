@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface TopicoRepository : JpaRepository<Topico, Long> {
 
-    fun findByCurso_Nome(nomeDoCurso: String, pagination: PageRequest): Page<Topico>
+    fun findByCurso_Nome(nomeDoCurso: String): List<Topico>
 }

@@ -5,9 +5,13 @@ import com.spring.and.kotlin.springAndKotlin.controllers.dtos.response.TopicoRes
 import com.spring.and.kotlin.springAndKotlin.controllers.mappers.TopicoMapper
 import com.spring.and.kotlin.springAndKotlin.services.TopicoService
 import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
@@ -18,11 +22,13 @@ class TopicoController(
 ) {
 
     @GetMapping
-    fun topicos(
-            @RequestParam pagina: Int,
-            @RequestParam quantidade: Int
-    ): Page<TopicoResponseDTO> {
-        val findAll = topicoService.buscaTodosOsTopicos(pagina, quantidade)
+    fun topicos(@PageableDefault(
+            page = 0,
+            size = 10,
+            sort = ["id"],
+            direction = Sort.Direction.ASC
+    ) pageable: Pageable): Page<TopicoResponseDTO> {
+        val findAll = topicoService.buscaTodosOsTopicos(pageable)
 
         return topicoMapper.toDTO(findAll)
     }
@@ -36,12 +42,9 @@ class TopicoController(
     }
 
     @GetMapping("/nomeCurso")
-    fun filtraTopicosPorNomeDoCurso(
-            @RequestParam nomeDoCurso: String,
-            @RequestParam pagina: Int,
-            @RequestParam quantidade: Int
-    ): Page<TopicoResponseDTO> {
-        val filtraTopicosPorNomeDoCurso = topicoService.filtraTopicosPorNomeDoCurso(nomeDoCurso, pagina, quantidade)
+    fun filtraTopicosPorNomeDoCurso(@RequestParam nomeDoCurso: String): List<TopicoResponseDTO> {
+        val filtraTopicosPorNomeDoCurso =
+                topicoService.filtraTopicosPorNomeDoCurso(nomeDoCurso)
 
         return topicoMapper.toDTO(filtraTopicosPorNomeDoCurso)
     }

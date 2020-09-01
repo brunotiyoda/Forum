@@ -17,7 +17,7 @@ class TopicoMapper(
         return pages.map { page -> toDomain(page) }
     }
 
-    fun toDomain(topicos: List<Topico>): MutableList<TopicoDomain> {
+    fun toDomain(topicos: List<Topico>): List<TopicoDomain> {
         val topicosDomain: MutableList<TopicoDomain> = mutableListOf()
 
         topicos.stream().map { topico ->
