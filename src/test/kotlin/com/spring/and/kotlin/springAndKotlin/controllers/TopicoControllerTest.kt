@@ -1,39 +1,24 @@
 package com.spring.and.kotlin.springAndKotlin.controllers
 
+import com.spring.and.kotlin.springAndKotlin.controllers.dtos.request.TopicoRequestDTO
+import com.spring.and.kotlin.springAndKotlin.controllers.dtos.response.TopicoResponseDTO
 import io.mockk.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.http.ResponseEntity
 
-
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TopicoControllerTest {
 
     val topicoControllerMockk = mockk<TopicoController>()
 
-/*    @Autowired
-    private lateinit var topicoController: TopicoController*/
-
-/*    @InjectMocks
-    private lateinit var topicoService: TopicoService
-
-    @Mock
-    private lateinit var topicoRepository: TopicoRepository
-
-    @InjectMocks
-    private lateinit var topicoMapper: TopicoMapper*/
-
-    //private lateinit var topicoMapper2: com.spring.and.kotlin.springAndKotlin.entities.mappers.TopicoMapper
-
-
     @Test
     fun `deve atualizar um tópico`() {
 
-        every { topicoControllerMockk.atualizarTopico(1) } returns ResponseEntity.ok()
+        every { topicoControllerMockk.atualizarTopico(1, TopicoRequestDTO()) } returns ResponseEntity.ok().body(TopicoResponseDTO())
 
-        topicoControllerMockk.atualizarTopico(1)
+        topicoControllerMockk.atualizarTopico(1, TopicoRequestDTO())
 
-        verify { topicoControllerMockk.atualizarTopico(1) }
+        verify { topicoControllerMockk.atualizarTopico(1, TopicoRequestDTO()) }
 
         confirmVerified(topicoControllerMockk)
     }

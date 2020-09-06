@@ -86,7 +86,7 @@ class TopicoController(
         val topicoAtualizado = topicoService.atualizarTopico(id, domain)
         val dto = topicoMapper.toDTO(topicoAtualizado)
 
-        return ResponseEntity.status(HttpStatus.OK).body(dto)
+        return ResponseEntity.ok().body(dto)
     }
 
     @DeleteMapping("/{id}")

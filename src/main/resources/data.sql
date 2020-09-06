@@ -1,7 +1,7 @@
 -- USUARIO --
-INSERT INTO USUARIO(nome, email, senha) VALUES('Aluno', 'aluno@email.com', '123456');
-INSERT INTO USUARIO(nome, email, senha) VALUES('Bruno', 'bruno@email.com', '123456');
-INSERT INTO USUARIO(nome, email, senha) VALUES('Patrick', 'patrick@email.com', '123456');
+INSERT INTO USUARIO(nome, email, senha) VALUES('Aluno', 'aluno@email.com', '$2a$10$6r2PcQG/8JdMi1q0hqDCluZd9X8XkY41PwmmzHmbn8H1Rc/MkLA9G');
+INSERT INTO USUARIO(nome, email, senha) VALUES('Bruno', 'bruno@email.com', '$2a$10$6r2PcQG/8JdMi1q0hqDCluZd9X8XkY41PwmmzHmbn8H1Rc/MkLA9G');
+INSERT INTO USUARIO(nome, email, senha) VALUES('Patrick', 'patrick@email.com', '$2a$10$6r2PcQG/8JdMi1q0hqDCluZd9X8XkY41PwmmzHmbn8H1Rc/MkLA9G');
 
 
 
