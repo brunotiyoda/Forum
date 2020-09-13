@@ -32,7 +32,7 @@ class AuthenticationTokenFilter(
     private fun authenticateUser(token: String?) {
         val idUser = tokenService.getIdUser(token)
         val user = usuarioRepository.findById(idUser).get()
-        val authentication = UsernamePasswordAuthenticationToken(user, null, user.getAuthorities())
+        val authentication = UsernamePasswordAuthenticationToken(user, null, user.authorities)
         SecurityContextHolder.getContext().authentication = authentication
     }
 
