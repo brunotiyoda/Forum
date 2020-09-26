@@ -38,7 +38,8 @@ class Security(
     override fun configure(http: HttpSecurity?) {
         http!!.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/h2-console/*").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/topicos").permitAll()
                 .antMatchers(HttpMethod.GET, "/topicos/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
