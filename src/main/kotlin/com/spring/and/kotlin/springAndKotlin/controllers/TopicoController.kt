@@ -1,8 +1,9 @@
 package com.spring.and.kotlin.springAndKotlin.controllers
 
 import com.spring.and.kotlin.springAndKotlin.controllers.dtos.request.TopicoRequestDTO
+import com.spring.and.kotlin.springAndKotlin.controllers.dtos.request.toDomain
 import com.spring.and.kotlin.springAndKotlin.controllers.dtos.response.TopicoResponseDTO
-import com.spring.and.kotlin.springAndKotlin.controllers.mappers.TopicoMapper
+import com.spring.and.kotlin.springAndKotlin.domains.toResponseDTO
 import com.spring.and.kotlin.springAndKotlin.services.TopicoService
 import org.slf4j.LoggerFactory
 import org.springframework.cache.annotation.CacheEvict
@@ -19,8 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder
 @RestController
 @RequestMapping("/topicos")
 class TopicoController(
-        private val topicoService: TopicoService,
-        private val topicoMapper: TopicoMapper
+        private val topicoService: TopicoService
 ) {
     private val logger = LoggerFactory.getLogger(TopicoController::class.java)
 
@@ -32,31 +32,31 @@ class TopicoController(
             sort = ["id"],
             direction = Sort.Direction.ASC
     ) pageable: Pageable): Page<TopicoResponseDTO> {
-        logger.info("find all topicos pageable. page number ${pageable.pageNumber} page size ${pageable.pageSize}")
+        logger.info("[TOPICO] - Find all Topicos pageable. Page number: ${pageable.pageNumber} Page size: ${pageable.pageSize}")
 
-        val findAll = topicoService.buscaTodosOsTopicos(pageable)
+        val pageOfTopicoDomain = topicoService.buscaTodosOsTopicos(pageable)
 
-        return topicoMapper.toDTO(findAll)
+        return pageOfTopicoDomain.toResponseDTO()
     }
 
     @GetMapping("/{id}")
     fun buscaPorUmTopico(@PathVariable id: Long): ResponseEntity<TopicoResponseDTO> {
-        logger.info("find topico by id $id")
+        logger.info("[TOPICO] - Find Topico by ID: $id")
 
-        val topico = topicoService.buscaUmTopico(id)
-        val dto = topicoMapper.toDTO(topico)
+        val topicoDomain = topicoService.buscaUmTopico(id)
+        val dto = topicoDomain.toResponseDTO()
 
         return ResponseEntity.status(HttpStatus.OK).body(dto)
     }
 
     @GetMapping("/nomeCurso")
     fun filtraTopicosPorNomeDoCurso(@RequestParam nomeDoCurso: String): List<TopicoResponseDTO> {
-        logger.info("filter topico by name $nomeDoCurso")
+        logger.info("[TOPICO] - Filter Topico by name: $nomeDoCurso")
 
         val filtraTopicosPorNomeDoCurso =
                 topicoService.filtraTopicosPorNomeDoCurso(nomeDoCurso)
 
-        return topicoMapper.toDTO(filtraTopicosPorNomeDoCurso)
+        return filtraTopicosPorNomeDoCurso.toResponseDTO()
     }
 
     @PostMapping
@@ -65,10 +65,10 @@ class TopicoController(
             @RequestBody topicoRequestDTO: TopicoRequestDTO,
             uriBuilder: UriComponentsBuilder
     ): ResponseEntity<TopicoResponseDTO> {
-        logger.info("new topico $topicoRequestDTO")
+        logger.info("[TOPICO] - New Topico: $topicoRequestDTO")
 
-        val novoTopicoCadastrado = topicoService.cadastrarNovoTopico(topicoMapper.toDomain(topicoRequestDTO))
-        val dto = topicoMapper.toDTO(novoTopicoCadastrado)
+        val novoTopicoCadastrado = topicoService.cadastrarNovoTopico(topicoRequestDTO.toDomain())
+        val dto = novoTopicoCadastrado.toResponseDTO()
 
         val uri = uriBuilder.path("/topicos/{id}").buildAndExpand(dto.id).toUri()
         return ResponseEntity.created(uri).body(dto)
@@ -80,11 +80,11 @@ class TopicoController(
             @PathVariable id: Long,
             @RequestBody topicoRequestDTO: TopicoRequestDTO
     ): ResponseEntity<TopicoResponseDTO> {
-        logger.info("update a topico $id")
+        logger.info("[TOPICO] - Update a Topico by ID: $id")
 
-        val domain = topicoMapper.toDomain(topicoRequestDTO)
+        val domain = topicoRequestDTO.toDomain()
         val topicoAtualizado = topicoService.atualizarTopico(id, domain)
-        val dto = topicoMapper.toDTO(topicoAtualizado)
+        val dto = topicoAtualizado.toResponseDTO()
 
         return ResponseEntity.ok().body(dto)
     }
@@ -92,7 +92,7 @@ class TopicoController(
     @DeleteMapping("/{id}")
     @CacheEvict(value = ["listaDeTopicos"], allEntries = true)
     fun deleteTopico(@PathVariable id: Long): ResponseEntity<Unit> {
-        logger.info("delete a topico $id")
+        logger.info("[TOPICO] - Delete a Topico by ID: $id")
 
         topicoService.deleteTopico(id)
         return ResponseEntity.ok().build<Unit>()

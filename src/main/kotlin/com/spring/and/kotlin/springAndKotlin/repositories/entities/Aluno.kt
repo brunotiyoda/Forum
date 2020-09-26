@@ -1,4 +1,4 @@
-package com.spring.and.kotlin.springAndKotlin.entities
+package com.spring.and.kotlin.springAndKotlin.repositories.entities
 
 import java.time.LocalDate
 import javax.persistence.*

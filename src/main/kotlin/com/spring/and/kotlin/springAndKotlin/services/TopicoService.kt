@@ -1,8 +1,11 @@
 package com.spring.and.kotlin.springAndKotlin.services
 
 import com.spring.and.kotlin.springAndKotlin.domains.TopicoDomain
-import com.spring.and.kotlin.springAndKotlin.entities.mappers.TopicoMapper
+import com.spring.and.kotlin.springAndKotlin.domains.toEntity
+import com.spring.and.kotlin.springAndKotlin.domains.updateTopico
 import com.spring.and.kotlin.springAndKotlin.repositories.TopicoRepository
+import com.spring.and.kotlin.springAndKotlin.repositories.entities.toDomain
+import com.spring.and.kotlin.springAndKotlin.repositories.entities.toPageDomain
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -10,60 +13,59 @@ import org.springframework.stereotype.Service
 
 @Service
 class TopicoService(
-        private val topicoRepository: TopicoRepository,
-        private val topicoMapper: TopicoMapper
+        private val topicoRepository: TopicoRepository
 ) {
 
     private val logger = LoggerFactory.getLogger(TopicoService::class.java)
 
     fun buscaTodosOsTopicos(pagination: Pageable): Page<TopicoDomain> {
-        val findAll = topicoRepository.findAll(pagination)
-        logger.info("topicos found $findAll")
+        val pageOfTopico = topicoRepository.findAll(pagination)
+        logger.info("[TOPICO] - Found Topicos: $pageOfTopico")
 
-        return topicoMapper.toDomain(findAll)
+        return pageOfTopico.toPageDomain()
     }
 
     fun buscaUmTopico(id: Long): TopicoDomain {
-        val found = topicoRepository.findById(id)
-        logger.info("topico found $found")
+        val optionalOfTopico = topicoRepository.findById(id)
+        logger.info("[TOPICO] - Found Topico: ${optionalOfTopico.get().titulo}")
 
-        return topicoMapper.toDomain(found)
+        return optionalOfTopico.toDomain()
     }
 
     fun filtraTopicosPorNomeDoCurso(nomeDoCurso: String): List<TopicoDomain> {
-        val nomeDoCurso = topicoRepository.findByCurso_Nome(nomeDoCurso)
-        logger.info("topico found $nomeDoCurso")
+        val cursos = topicoRepository.findByCurso_Nome(nomeDoCurso)
+        logger.info("[TOPICO] - Found Topico by Curso: $cursos")
 
-        return topicoMapper.toDomain(nomeDoCurso)
+        return cursos.toDomain()
     }
 
     fun cadastrarNovoTopico(topicoDomain: TopicoDomain): TopicoDomain {
-        val entity = topicoMapper.toEntity(topicoDomain)
-        logger.info("new topico domain to entity $entity")
+        val entity = topicoDomain.toEntity()
+        logger.info("[TOPICO] - New Topico Domain to Entity: $entity")
 
         val save = topicoRepository.save(entity)
         logger.info("new topico $save")
 
-        return topicoMapper.toDomain(save)
+        return save.toDomain()
     }
 
     fun atualizarTopico(id: Long, topicoDomain: TopicoDomain): TopicoDomain {
-        logger.info("update a topico $id ${topicoDomain.titulo}")
+        logger.info("[TOPICO] - Update Topico: $id ${topicoDomain.titulo}")
 
-        val found = topicoRepository.getOne(id)
-        logger.info("topico found ${found.id} ${found.titulo}")
+        val topico = topicoRepository.getOne(id)
+        logger.info("[TOPICO] - Found Topico: ${topico.id} ${topico.titulo}")
 
-        val entity = topicoMapper.udpateTopico(found, topicoDomain)
-        logger.info("update topico domain to entity $entity")
+        val entity = topicoDomain.updateTopico(topico)
+        logger.info("[TOPICO] - Update Topico Domain to Entity")
 
         val save = topicoRepository.save(entity)
-        logger.info("update topico $save")
+        logger.info("[TOPICO] - Update Topico")
 
-        return topicoMapper.toDomain(save)
+        return save.toDomain()
     }
 
     fun deleteTopico(id: Long) {
-        logger.info("delete a topico $id")
+        logger.info("[TOPICO] - Delete Topico by ID: $id")
         topicoRepository.deleteById(id)
     }
 

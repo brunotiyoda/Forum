@@ -1,7 +1,6 @@
 package com.spring.and.kotlin.springAndKotlin.controllers.dtos.response
 
-class CursoResponseDTO {
-
-    var nome: String = String()
-    var categoria: String = String()
-}
+data class CursoResponseDTO(
+        val nome: String? = "",
+        val categoria: String? = ""
+)

@@ -1,4 +1,4 @@
-package com.spring.and.kotlin.springAndKotlin.entities
+package com.spring.and.kotlin.springAndKotlin.repositories.entities
 
 import org.springframework.security.core.GrantedAuthority
 import javax.persistence.*
