@@ -1,6 +1,6 @@
 package com.spring.and.kotlin.springAndKotlin.authentication
 
-import com.spring.and.kotlin.springAndKotlin.entities.Usuario
+import com.spring.and.kotlin.springAndKotlin.repositories.entities.Usuario
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Value

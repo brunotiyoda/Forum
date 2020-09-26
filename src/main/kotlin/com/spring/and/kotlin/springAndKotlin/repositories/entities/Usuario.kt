@@ -1,11 +1,16 @@
-package com.spring.and.kotlin.springAndKotlin.entities
+package com.spring.and.kotlin.springAndKotlin.repositories.entities
 
+import com.spring.and.kotlin.springAndKotlin.domains.UsuarioDomain
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import javax.persistence.*
 
 @Entity
 data class Usuario(
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        val id: Long? = 0,
 
         @Column(name = "nome")
         val nome: String = "",
@@ -14,17 +19,14 @@ data class Usuario(
         val email: String = "",
 
         @Column(name = "senha")
-        val senha: String = ""
+        val senha: String = "",
+
+        @OneToMany(fetch = FetchType.EAGER)
+        val perfis: List<Perfil> = emptyList()
+
 ) : UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0
-
-    @OneToMany(fetch = FetchType.EAGER)
-    val perfis: MutableList<Perfil> = mutableListOf()
-
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+    override fun getAuthorities(): List<GrantedAuthority> {
         return perfis
     }
 
@@ -51,5 +53,10 @@ data class Usuario(
     override fun isEnabled(): Boolean {
         return true
     }
+}
 
+fun Usuario.toDomain(): UsuarioDomain {
+    return UsuarioDomain(
+            nome = nome
+    )
 }

@@ -1,8 +1,6 @@
 package com.spring.and.kotlin.springAndKotlin.repositories
 
-import com.spring.and.kotlin.springAndKotlin.entities.Topico
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageRequest
+import com.spring.and.kotlin.springAndKotlin.repositories.entities.Topico
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface TopicoRepository : JpaRepository<Topico, Long> {

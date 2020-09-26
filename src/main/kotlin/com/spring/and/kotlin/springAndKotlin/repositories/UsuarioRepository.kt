@@ -1,6 +1,6 @@
 package com.spring.and.kotlin.springAndKotlin.repositories
 
-import com.spring.and.kotlin.springAndKotlin.entities.Usuario
+import com.spring.and.kotlin.springAndKotlin.repositories.entities.Usuario
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
