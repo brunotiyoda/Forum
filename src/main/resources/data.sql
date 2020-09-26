@@ -1,9 +1,14 @@
 -- USUARIO --
 INSERT INTO USUARIO(nome, email, senha) VALUES('Aluno', 'aluno@email.com', '$2a$10$6r2PcQG/8JdMi1q0hqDCluZd9X8XkY41PwmmzHmbn8H1Rc/MkLA9G');
-INSERT INTO USUARIO(nome, email, senha) VALUES('Bruno', 'bruno@email.com', '$2a$10$6r2PcQG/8JdMi1q0hqDCluZd9X8XkY41PwmmzHmbn8H1Rc/MkLA9G');
-INSERT INTO USUARIO(nome, email, senha) VALUES('Patrick', 'patrick@email.com', '$2a$10$6r2PcQG/8JdMi1q0hqDCluZd9X8XkY41PwmmzHmbn8H1Rc/MkLA9G');
+INSERT INTO USUARIO(nome, email, senha) VALUES('Moderador', 'moderador@email.com', '$2a$10$6r2PcQG/8JdMi1q0hqDCluZd9X8XkY41PwmmzHmbn8H1Rc/MkLA9G');
 
+-- PERFIL --
+INSERT INTO PERFIL(id, tipo) VALUES (1, 'ROLE_ALUNO');
+INSERT INTO PERFIL(id, tipo) VALUES (2, 'ROLE_MODERADOR');
 
+-- USUARIO PERFIL --
+INSERT INTO USUARIO_PERFIS(usuario_id, perfis_id) VALUES (1, 1);
+INSERT INTO USUARIO_PERFIS(usuario_id, perfis_id) VALUES (2, 2);
 
 -- CURSO --
 INSERT INTO CURSO(nome, categoria) VALUES('Spring Boot', 'Backend');
@@ -12,8 +17,6 @@ INSERT INTO CURSO(nome, categoria) VALUES('Java', 'Backend');
 INSERT INTO CURSO(nome, categoria) VALUES('Python', 'Backend');
 INSERT INTO CURSO(nome, categoria) VALUES('Clojure', 'Backend');
 INSERT INTO CURSO(nome, categoria) VALUES('HTML 5', 'Frontend');
-
-
 
 -- TOPICO --
 INSERT INTO TOPICO(titulo, mensagem, data_criacao, status, autor_id, curso_id)
