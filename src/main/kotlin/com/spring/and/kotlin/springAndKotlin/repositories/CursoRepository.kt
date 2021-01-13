@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface CursoRepository : JpaRepository<Curso, Long> {
 
+    fun findByNome(name: String): Curso?
 }

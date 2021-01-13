@@ -59,5 +59,5 @@ fun Page<Topico>.toPageDomain(): Page<TopicoDomain> {
 }
 
 fun Optional<Topico>.toDomain(): TopicoDomain {
-        return map { get().toDomain() }.orElseThrow { throw Exception("Não encontrado") }
+    return map { get().toDomain() }.orElseThrow { throw Exception("Não encontrado") }
 }
