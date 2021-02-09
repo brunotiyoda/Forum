@@ -53,9 +53,11 @@ class TopicoServiceTest {
 
     @Test
     fun `filter topicos when nome is null`() {
-        every { topicoRepositoryMockK.findByCurso_Nome(isNull()) } throws RuntimeException("Something went wrong. Nome is null")
+        every {
+            topicoRepositoryMockK.findByCurso_Nome(isNull())
+        } throws RuntimeException("Something went wrong. Nome is null")
 
-        val filtraTopicosPorNomeDoCurso = topicoService.filtraTopicosPorNomeDoCurso("isNull()")
+        val filtraTopicosPorNomeDoCurso = topicoService.filtraTopicosPorNomeDoCurso("Spring")
 
         val nomeCurso = filtraTopicosPorNomeDoCurso.map { it.cursoDomain?.nome }.first()
 
