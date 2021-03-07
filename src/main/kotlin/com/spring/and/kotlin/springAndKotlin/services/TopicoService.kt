@@ -6,6 +6,7 @@ import com.spring.and.kotlin.springAndKotlin.domains.updateTopico
 import com.spring.and.kotlin.springAndKotlin.repositories.TopicoRepository
 import com.spring.and.kotlin.springAndKotlin.repositories.entities.toDomain
 import com.spring.and.kotlin.springAndKotlin.repositories.entities.toPageDomain
+import com.spring.and.kotlin.springAndKotlin.services.exceptions.TopicoNotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class TopicoService(
-        private val topicoRepository: TopicoRepository
+    private val topicoRepository: TopicoRepository
 ) {
 
     private val logger = LoggerFactory.getLogger(TopicoService::class.java)
@@ -26,14 +27,17 @@ class TopicoService(
     }
 
     fun buscaUmTopico(id: Long): TopicoDomain {
-        val optionalOfTopico = topicoRepository.findById(id)
-        logger.info("[TOPICO] - Found Topico: ${optionalOfTopico.get().titulo}")
+        val optionalOfTopico = topicoRepository.findById(id).orElseThrow { throw TopicoNotFoundException("$id") }
+        logger.info("[TOPICO] - Found Topico: ${optionalOfTopico.titulo}")
 
         return optionalOfTopico.toDomain()
     }
 
     fun filtraTopicosPorNomeDoCurso(nomeDoCurso: String): List<TopicoDomain> {
         val cursos = topicoRepository.findByCurso_Nome(nomeDoCurso)
+
+        if (cursos.isEmpty()) throw TopicoNotFoundException()
+
         logger.info("[TOPICO] - Found Topico by Curso: $cursos")
 
         return cursos.toDomain()
@@ -52,7 +56,7 @@ class TopicoService(
     fun atualizarTopico(id: Long, topicoDomain: TopicoDomain): TopicoDomain {
         logger.info("[TOPICO] - Update Topico: $id ${topicoDomain.titulo}")
 
-        val topico = topicoRepository.getOne(id)
+        val topico = topicoRepository.findById(id).orElseThrow { throw TopicoNotFoundException("$id") }
         logger.info("[TOPICO] - Found Topico: ${topico.id} ${topico.titulo}")
 
         val entity = topicoDomain.updateTopico(topico)
