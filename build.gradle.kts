@@ -10,7 +10,7 @@ plugins {
 
 group = "com.spring.and.kotlin"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_14
+java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 java {
     withSourcesJar()
@@ -61,7 +61,11 @@ tasks.withType<KotlinCompile> {
 
 tasks.jar {
     manifest {
-        attributes(mapOf("Implementation-Title" to project.name,
-            "Implementation-Version" to project.version))
+        attributes(
+            mapOf(
+                "Implementation-Title" to project.name,
+                "Implementation-Version" to project.version
+            )
+        )
     }
 }
